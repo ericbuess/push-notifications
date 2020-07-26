@@ -1,9 +1,11 @@
-import http.client, urllib
+import http.client, urllib, os
+PUSHOVER_TOKEN = os.getenv('PUSHOVER_TOKEN')
+PUSHOVER_USER = os.getenv('PUSHOVER_USER')
 conn = http.client.HTTPSConnection("api.pushover.net:443")
 conn.request("POST", "/1/messages.json",
   urllib.parse.urlencode({
-    "token": "ahyqzpz4fh1qq8pp7wccoyatns2ur2",
-    "user": "ugvdnqcydgr3w6b8p9cti63jsmzp3m",
+    "token": PUSHOVER_TOKEN,
+    "user": PUSHOVER_USER,
     "message": "Open the link",
     "title": "Pythonista Test",
     "url": "pythonista3://",

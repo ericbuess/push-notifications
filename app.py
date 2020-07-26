@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-toJayson - Sends JSON to Jayson on iOS via Pushcut
+Sends JSON to Pushcut on iOS via a notification which can be used to trigger an automation
 
 Reads from stdin
 
 '''
-import requests
+import requests, json, os
 
+PUSHCUT_SECRET = os.getenv('PUSHCUT_SECRET')
 # Take command line parameter but do surround by single quotes 
 
 #myString="".join(sys.stdin.readlines())
-myString="{'it':'worked!'}"
-myjson={'input':myString}
-#r=requests.post("https://api.pushcut.io/Iy11kn8dtEj0YOCCY7cWs/View%20JSON",json=myjson,timeout=10)
-r=requests.post("https://api.pushcut.io/Iy11kn8dtEj0YOCCY7cWs/notifications/View%20JSON",json=myjson,timeout=10)
 
-print(r.text)
+results={'title':'Covid 19','text':'Bell: 600\nSmith: 300','input':[{'bell':{'total':'600'}}]}
+#results=json.dumps(results)
+r=requests.post("https://api.pushcut.io/" + PUSHCUT_SECRET + "/notifications/covid",json=results,timeout=10)
+
+print('covid notification result: ', r.text)
